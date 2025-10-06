@@ -1,7 +1,7 @@
 Trabalho realizado como creditação da disciplina de Tópicos Avançados de Computação II - Dispositivos Móveis utilizando React Native para criar uma aplicação Mobile.
 
-Instalação no terminal: npm install -g expo-cli
-		     			npx create-expo-app Trabalho-TAC-II --template blank
+Instalação no terminal: npm install -g expo-cli;
+		     			npx create-expo-app Trabalho-TAC-II --template blank;
 		     			cd Trabalho-TAC-II
 						
 Instalar no celular (PlayStory): Expo Go
