@@ -37,7 +37,8 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: '75%',
         alignItems: 'center',
-        paddingTop: '20'
+        paddingTop: '20',
+        fontFamily: 'Arial'
     },
 
     barraConsulta: {
