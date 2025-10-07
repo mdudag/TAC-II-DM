@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 // Cores fixas
-const cores = {
+export const cores = {
     azul: '#8DD5E9',
     verde: '#B8EBCC',
     branco: '#FFFFFF'
@@ -9,7 +9,7 @@ const cores = {
 
 export const styles = StyleSheet.create({
     top: {
-        height: '38',
+        height: '35',
         backgroundColor: '#D0F5FF'
     },
 
@@ -23,8 +23,7 @@ export const styles = StyleSheet.create({
     cabecalho: {
         flexDirection: 'row',
         width: '100%',
-        height: '10%',
-        // justifyContent: 'flex-end',
+        height: '8%',
         alignItems: 'center',
         paddingLeft: 30,
         paddingRight: 20,
@@ -32,40 +31,35 @@ export const styles = StyleSheet.create({
         backgroundColor: cores.azul
     },
 
+    tituloCabecalho: {
+        flex: 1,
+        fontSize: 19, 
+        fontWeight: 'bold'
+    },
+
     corpo: {
         flex: 1,
         width: '100%',
-        height: '75%',
+        height: '77%',
         alignItems: 'center',
         paddingTop: '20',
         fontFamily: 'Arial'
     },
 
     barraConsulta: {
-        // height: '10%',
         width: '80%',
         flexDirection: 'row',
-        // justifyContent: 'space-around',
-        // height: '10%',
-        // width: '90%',
         marginTop: 10,
         marginBottom: 30,
         alignItems: 'center',
-        // paddingHorizontal: 30,
-        // backgroundColor: cores.branco
-        // borderWidth: 2
     },
 
     textInput: {
         flex: 1,
         height: 37,
-        // width: '20%',
-        // borderWidth: 1,
         paddingLeft: 20,
-        // marginRight: 10,
         elevation: 2,
         borderRadius: 17,
-        // borderColor: 'blue',
         backgroundColor: cores.branco
     },
 
@@ -90,7 +84,6 @@ export const styles = StyleSheet.create({
     headerListas: {
         marginBottom: '10',
         marginTop: '10',
-        // fontSize: 16,
         fontWeight: 'bold'
     },
 
@@ -164,7 +157,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 40,
         justifyContent: 'center',
-        // paddingBottom: '20',
         backgroundColor: cores.azul
     }
 });
