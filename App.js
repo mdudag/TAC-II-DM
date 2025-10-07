@@ -1,11 +1,12 @@
-import {useState, useMemo} from 'react';
 import { StatusBar } from 'expo-status-bar';
+import {useState, useMemo} from 'react';
 import {View , ImageBackground} from 'react-native';
 
 import {Cabecalho, Corpo, Rodape} from './componentes';
 import { styles } from './styles';
 
 export default function App() {
+  // Guarda todas as listas atualizadas
   const [listas, setListas] = useState([
     {
       id: 1,
@@ -59,76 +60,85 @@ export default function App() {
     }
   ]);
 
-  const [listaPesq, setListaPesq] = useState(listas)
-      
-      const sections = useMemo(() => {
-          const todasSections = [
-          {
-              title: 'Não Visível',
-              data: listaPesq.filter(l => !l.isVisivel)
-          },
-          {
-              title: 'Visível',
-              data: listaPesq.filter(l => l.isVisivel)
-          }
-          ]
+  const [pesq, setPesq] = useState(''); // Guarda o valor do input de pesquisa
+  const [ID, setID] = useState(6);      // Guarda valo do id de nova lista
   
-          return todasSections.filter(s => s.data.length>0);
-  
-      }, [listaPesq]);
+  // Lista gerada a partir da pesquisa ou da atualização da lista original
+  const listaPesq = useMemo(() => {
+    const palavra = pesq.toLowerCase().trim();
 
-  const [ID, setID] = useState(6);
+    // Retorna a lista original se nada for inserido no input de pesquisa
+    if (palavra==='') {
+      return listas;
+    }
+
+    // Retorna as palavras que contém a palavra digitada no input de pesquisa
+    return listas.filter((lista) => 
+      lista.titulo.toLowerCase().includes(palavra)
+    );
+      
+  }, [listas, pesq]);
+  
+  const sections = useMemo(() => {
+    // Criando as seções de Listas Visíveis e Não Visíveis
+    const todasSections = [
+    {
+      title: 'Não Visível',
+      data: listaPesq.filter(l => !l.isVisivel)
+    },
+    {
+      title: 'Visível',
+      data: listaPesq.filter(l => l.isVisivel)
+    }
+    ]
+    return todasSections.filter(s => s.data.length>0);
+
+  }, [listaPesq]);
 
   const handlePressAddLista = () => {
+    // Adiciona uma nova lista de exercícios as listas
     const novaLista = {
-          id: ID,
-          titulo: `Lista ${ID}`,
-          isVisivel: false,
-          descricao: "Compare a distância de um trajeto em linha reta com a distância percorrida seguindo o contorno das ruas (em formato de L).",
-          nivel: "Fácil",
-          qntExerc: 5,
-          dica: "Na rota em L, some os dois segmentos de reta. Na rota em linha reta, use Pitágoras.",
-          resposta: ['d', 'a', 'b', 'c', 'b']
+      id: ID,
+      titulo: `Lista ${ID}`,
+      isVisivel: false,
+      descricao: "Compare a distância de um trajeto em linha reta com a distância percorrida seguindo o contorno das ruas (em formato de L).",
+      nivel: "Fácil",
+      qntExerc: 5,
+      dica: "Na rota em L, some os dois segmentos de reta. Na rota em linha reta, use Pitágoras.",
+      resposta: ['d', 'a', 'b', 'c', 'b']
     }
 
     setListas(l => [...l, novaLista]);
-    setListaPesq(l => [...l, novaLista]);
-    setID(ID+1);
+    setID(id => id+1);
   }
 
-  // Criando as seções de Listas Visíveis e Não Visíveis
-  // const sections = useMemo(() => [
-  //   {
-  //     title: 'Não Visível',
-  //     data: listas.filter(l => !l.isVisivel)
-  //   },
-  //   {
-  //     title: 'Visível',
-  //     data: listas.filter(l => l.isVisivel)
-  //   }
-  // ], [listas]);
+  const handlePressLixeira = (id) => {
+    // Cria uma nova lista sem a lista que foi selecionada para deleção
+    const l = listas.filter(item => item.id !== id);
+    setListas(l);
+  }
 
   return (        
     <View style={{ flex: 1 }}>
       <View style={styles.top} />
 
       <View style={styles.screen}>
-        <StatusBar style='dark' backgroundColor='#D0F5FF'/>
+        <StatusBar style='dark' 
+                   backgroundColor='#D0F5FF'/>
 
         <Cabecalho handlePressAddLista={handlePressAddLista}/>
 
         <ImageBackground source={require('./assets/fundo.png')}
-                          resizeMode='cover'
-                          style={styles.corpoFundo}>
-          <Corpo listas={listas} 
-                 setListas={setListas} 
-                 sections={sections} 
-                 listaPesq={listaPesq}
-                 setListaPesq={setListaPesq}/>
+                         resizeMode='cover'
+                         style={styles.corpoFundo}>
+          <Corpo sections={sections}
+                 setPesq={setPesq}
+                 handlePressLixeira={handlePressLixeira}/>
         </ImageBackground>
 
         <Rodape/>
       </View>
+
     </View>
   );
 }
