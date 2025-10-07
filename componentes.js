@@ -131,7 +131,7 @@ function ModalLista({isVisible, modalClose, itemLista}) {
                             <ModalItem label='Valor' text={valorLista(itemLista)}/>
                             <ModalItem label='Dica' text={itemLista.dica}/>
                             <ModalItem label='Gabarito' 
-                                    text={itemLista.resposta.join(' | ') || 'Sem Gabarito'}/>
+                                    text={itemLista.resposta?.join(' | ') || 'Sem Gabarito'}/>
                         </View>
                     </ScrollView>
                 </View>
