@@ -7,19 +7,50 @@ import {cores, styles} from './styles';
 export function Cabecalho({handlePressAddLista}) {
     return(
     <View style={styles.cabecalho}>
-        <Text style={styles.tituloCabecalho}>Listas de Exercícios</Text>
-        <ButtonStyle title=' ✛ ' onPress={handlePressAddLista}/>
+        <Text style={styles.tituloCabecalho}
+              // Se o texto for maior que o espaço:
+              numberOfLines={1}     // Permite o texto em uma linha
+              adjustsFontSizeToFit  // Diminui o tamanho da fonte para caber
+              minimumFontScale={0.9} // Tamanho mínimo da fonte: até 90% menor
+              ellipsizeMode='tail'  // Corta o texto e add reticências se for muito grande
+              >
+            Listas de Exercícios
+        </Text>
+        <Botao titulo="✛"
+               onPress={handlePressAddLista}
+               cor='transparent'
+               estiloBotao={{paddingHorizontal: 10}} />
     </View>
     );
 }
 
-function ButtonStyle({title, onPress}) {
+function Botao({
+    titulo = 'Botão',
+    onPress = () => {},
+    cor = cores.branco,
+    corPress = 'transparent',
+    estiloBotao = {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+    },
+    estiloText = {
+        color: '#000',
+        fontSize: 16
+    },
+    icone = null
+}) {
     return(
-        <View style={{marginRight: 10}}>
-            <Button title={title}
-                    color={cores.azul}
-                    onPress={onPress}/>
-        </View>
+        <Pressable onPress={onPress}
+                   style={({pressed}) => [ {
+                    backgroundColor: cor? (pressed? corPress: cor): 'transparent'
+                   }, estiloBotao]}>
+            {icone && <Text>{icone}</Text>}
+            {titulo? <Text style={estiloText}>{titulo}</Text>: null}
+        </Pressable>
     );
 }
 
@@ -68,17 +99,21 @@ function ResultadoListas({sections, handlePressLixeira}) {
         <View style={styles.barraLista}>
                 <View style={{flex: 1}}>
                     <Pressable onPress={() => modalOpen(item)}>
-                        <Text>{item.titulo}</Text>
+                        <Text // Se o texto for maior que o espaço:
+                              numberOfLines={1}     // Permite o texto em uma linha
+                              minimumFontScale={0.9} // Tamanho mínimo da fonte: até 90% menor
+                              ellipsizeMode='tail'  // Corta o texto e add reticências se for muito grande
+                        >
+                            {item.titulo}
+                        </Text>
                     </Pressable>
                 </View>
-                <View style={{flexDirection: 'row', marginLeft: '14'}}>
-                    {/* <Text style={{marginRight: '10'}}>✏️</Text> */}
-                    {/* <Text>🗑️ </Text> */}
-                    <Button title='🗑️'
-                            color={cores.branco}
-                            onPress={() => handlePressLixeira(item.id)}/>
+                <View style={{flexDirection: 'row', marginLeft: 14}}>
+                    <Botao titulo="🗑️"
+                           onPress={() => handlePressLixeira(item.id)}
+                           cor='transparent'
+                           estiloBotao={{paddingHorizontal: 14}} />
                 </View>
-
             </View> 
         );
     }
@@ -113,13 +148,18 @@ function ModalLista({isVisible, modalClose, itemLista}) {
                 <View style={styles.modalContainer}>
                     <View style={styles.modalCabecalho}>
                         <Text style={styles.modalCabecalhoText}
-                              numberOfLines={1} // Quantidade máxima de linhas
-                              adjustsFontSizeToFit // Ajusta o tamanho da fonte 
+                            // Se o texto for maior que o espaço:
+                              numberOfLines={1}     // Permite o texto em uma linha
+                              adjustsFontSizeToFit  // Diminui o tamanho da fonte para caber
+                              minimumFontScale={0.8} // Tamanho mínimo da fonte: até 80% menor
+                              ellipsizeMode='tail'  // Corta o texto e add reticências se for muito grande
                               > {itemLista.titulo}
                         </Text>
-                        <Pressable onPress={modalClose}>
-                            <Text style={{color: '#aaa'}}>✕</Text>
-                        </Pressable>
+                        <Botao titulo="✕"
+                               onPress={modalClose}
+                               cor='transparent'
+                               estiloBotao={{paddingHorizontal: 10}} 
+                               estiloText={{color: cores.cinza}}/>
                     </View>
 
                   <View style={styles.modalLine}></View>
@@ -146,7 +186,6 @@ function ModalItem({label, text}) {
             <Text style={styles.modalItemLabel}>{label}:
                 <Text style={styles.modalItemText}> {text}</Text>
             </Text>
-            
         </View>
     );
 }
@@ -169,17 +208,35 @@ const valorLista = (itemLista) => {
 // ================== RODAPÉ ==================
 
 export function Rodape() {
+    const cor=cores.azul,padding=17, marginHorizontal=8,borderRadius=40;
 
     return(
         <View style={styles.rodape}>
-            <ButtonStyle title=' 🏚️ '/>
-            <ButtonStyle title=' 🗺️ '/>
-            <View style={{marginRight: 10}}>
-                <Button title=' 📋 '
-                        color={cores.verde}/>
-            </View>
-            <ButtonStyle title=' ✏️ '/>
-            <ButtonStyle title=' 👤 '/>
+            <Botao titulo="🏚️"
+                   cor={cor}
+                   estiloBotao={{padding: padding,
+                                 marginHorizontal: marginHorizontal,
+                                 borderRadius: borderRadius}} />
+            <Botao titulo="🗺️"
+                   cor={cor}
+                   estiloBotao={{padding: padding,
+                                 marginHorizontal: marginHorizontal,
+                                 borderRadius: borderRadius}} />
+            <Botao titulo="📋"
+                   cor={cor}
+                   estiloBotao={{padding: padding,
+                                 marginHorizontal: marginHorizontal,
+                                 borderRadius: borderRadius}} />
+            <Botao titulo="✏️"
+                   cor={cor}
+                   estiloBotao={{padding: padding,
+                                 marginHorizontal: marginHorizontal,
+                                 borderRadius: borderRadius}} />
+            <Botao titulo="👤"
+                   cor={cor}
+                   estiloBotao={{padding: padding,
+                                 marginHorizontal: marginHorizontal,
+                                 borderRadius: borderRadius}} />
         </View>
     );
 }
