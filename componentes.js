@@ -13,7 +13,14 @@ export function Cabecalho({ handlePressAddLista }) {
     );
 }
 
-// ================== CORPO ===================
+// ================== BOTÃO ==================
+export function ButtonStyle({ title, onPress }) {
+    return (
+        <View style={{ marginRight: 10 }}>
+            <Button title={title} color={cores.azul} onPress={onPress} />
+        </View>
+    );
+}
 
 export function Corpo({ listas, setListas, sections, listaPesq, setListaPesq }) {
     const [pesq, setPesq] = useState('');
@@ -49,7 +56,6 @@ function BarraConsulta({ placeholder, pesq, setPesq, listas, setListaPesq }) {
         const timer = setTimeout(() => {
             buscarListas();
         }, 300);
-
         return () => clearTimeout(timer);
     }, [pesq]);
 

@@ -9,6 +9,7 @@ import ModalAdicionarLista from './src/components/ModalAdicionarLista'; // Impor
 import { styles } from './src/styles/styles';
 
 export default function App() {
+  // Guarda todas as listas atualizadas
   const [listas, setListas] = useState([
     // suas listas originais...
   ]);
@@ -43,7 +44,8 @@ export default function App() {
       <View style={styles.top} />
 
       <View style={styles.screen}>
-        <StatusBar style='dark' backgroundColor='#D0F5FF'/>
+        <StatusBar style='dark' 
+                   backgroundColor='#D0F5FF'/>
 
         <Cabecalho handlePressAddLista={handlePressAddLista} />
 
@@ -70,6 +72,7 @@ export default function App() {
           onAdicionarLista={handleAdicionarLista}
         />
       </View>
+
     </View>
   );
 }
