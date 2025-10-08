@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { styles } from '../styles/styles';
 
-export function ModalItem({ label, text }) {
+export default function ModalItem({ label, text }) {
   return (
     <View style={styles.modalItem}>
       <Text style={styles.modalItemLabel}>

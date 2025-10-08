@@ -17,7 +17,7 @@ export default function App() {
       nivel: "Fácil",
       qntExerc: 10,
       dica: "Use o Teorema de Pitágoras se os pontos formarem um triângulo retângulo no mapa.",
-      resposta: ['a','a','b','b','b','c','b','b','b','b']
+      resposta: ['a', 'a', 'b', 'b', 'b', 'c', 'b', 'b', 'b', 'b']
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ export default function App() {
       nivel: "Fácil",
       qntExerc: 5,
       dica: "Na rota em L, some os dois segmentos de reta. Na rota em linha reta, use Pitágoras.",
-      resposta: ['d','a','b','c','b']
+      resposta: ['d', 'a', 'b', 'c', 'b']
     },
     {
       id: 3,
@@ -37,7 +37,7 @@ export default function App() {
       nivel: "Médio",
       qntExerc: 8,
       dica: "Verifique se o triângulo é retângulo ou se pode aplicar semelhança de triângulos.",
-      resposta: ['b','b','a','c','c','c','b','b']
+      resposta: ['b', 'b', 'a', 'c', 'c', 'c', 'b', 'b']
     },
     {
       id: 4,
@@ -47,7 +47,7 @@ export default function App() {
       nivel: "Médio",
       qntExerc: 14,
       dica: "Some os comprimentos de cada lado do polígono que representa a rota.",
-      resposta: ['c','c','c','b','a','a','b','b','b','c','b','d','d','b']
+      resposta: ['c', 'c', 'c', 'b', 'a', 'a', 'b', 'b', 'b', 'c', 'b', 'd', 'd', 'b']
     },
     {
       id: 5,
@@ -57,7 +57,7 @@ export default function App() {
       nivel: "Difícil",
       qntExerc: 2,
       dica: "Compare a rota em linha reta com a soma de trechos pelas ruas. Considere que nem sempre a linha reta é viável.",
-      resposta: ['a','c']
+      resposta: ['a', 'c']
     }
   ]);
 
@@ -74,7 +74,7 @@ export default function App() {
       nivel: "Fácil",
       qntExerc: 5,
       dica: "Na rota em L, some os dois segmentos de reta. Na rota em linha reta, use Pitágoras.",
-      resposta: ['d','a','b','c','b']
+      resposta: ['d', 'a', 'b', 'c', 'b']
     };
     setListas(l => [...l, novaLista]);
     setListaPesq(l => [...l, novaLista]);
@@ -95,7 +95,7 @@ export default function App() {
       <View style={styles.top} />
 
       <View style={styles.screen}>
-        <StatusBar style='dark' backgroundColor='#D0F5FF'/>
+        <StatusBar style='dark' backgroundColor='#D0F5FF' />
 
         <Cabecalho handlePressAddLista={handlePressAddLista} />
 
@@ -105,6 +105,8 @@ export default function App() {
           style={styles.corpoFundo}
         >
           <Corpo
+            listas={listas}
+            setListas={setListas}
             sections={sections}
             listaPesq={listaPesq}
             setListaPesq={setListaPesq}
