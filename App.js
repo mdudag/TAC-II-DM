@@ -1,9 +1,11 @@
-import {useState, useMemo} from 'react';
+import React, { useState, useMemo } from 'react';
+import { View, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import {View , ImageBackground} from 'react-native';
 
-import {Cabecalho, Corpo, Rodape} from './componentes';
-import { styles } from './styles';
+import Cabecalho from './src/components/Cabecalho';
+import Corpo from './src/components/Corpo';
+import Rodape from './src/components/Rodape';
+import { styles } from './src/styles/styles';
 
 export default function App() {
   const [listas, setListas] = useState([
@@ -15,7 +17,7 @@ export default function App() {
       nivel: "Fácil",
       qntExerc: 10,
       dica: "Use o Teorema de Pitágoras se os pontos formarem um triângulo retângulo no mapa.",
-      resposta: ['a', 'a', 'b', 'b', 'b', 'c', 'b', 'b', 'b', 'b']
+      resposta: ['a','a','b','b','b','c','b','b','b','b']
     },
     {
       id: 2,
@@ -25,7 +27,7 @@ export default function App() {
       nivel: "Fácil",
       qntExerc: 5,
       dica: "Na rota em L, some os dois segmentos de reta. Na rota em linha reta, use Pitágoras.",
-      resposta: ['d', 'a', 'b', 'c', 'b']
+      resposta: ['d','a','b','c','b']
     },
     {
       id: 3,
@@ -35,7 +37,7 @@ export default function App() {
       nivel: "Médio",
       qntExerc: 8,
       dica: "Verifique se o triângulo é retângulo ou se pode aplicar semelhança de triângulos.",
-      resposta: ['b', 'b', 'a', 'c', 'c', 'c', 'b', 'b']
+      resposta: ['b','b','a','c','c','c','b','b']
     },
     {
       id: 4,
@@ -45,7 +47,7 @@ export default function App() {
       nivel: "Médio",
       qntExerc: 14,
       dica: "Some os comprimentos de cada lado do polígono que representa a rota.",
-      resposta: ['c', 'c', 'c', 'b','a', 'a', 'b', 'b', 'b', 'c', 'b', 'd', 'd', 'b']
+      resposta: ['c','c','c','b','a','a','b','b','b','c','b','d','d','b']
     },
     {
       id: 5,
@@ -55,79 +57,61 @@ export default function App() {
       nivel: "Difícil",
       qntExerc: 2,
       dica: "Compare a rota em linha reta com a soma de trechos pelas ruas. Considere que nem sempre a linha reta é viável.",
-      resposta: ['a', 'c']
+      resposta: ['a','c']
     }
   ]);
 
-  const [listaPesq, setListaPesq] = useState(listas)
-      
-      const sections = useMemo(() => {
-          const todasSections = [
-          {
-              title: 'Não Visível',
-              data: listaPesq.filter(l => !l.isVisivel)
-          },
-          {
-              title: 'Visível',
-              data: listaPesq.filter(l => l.isVisivel)
-          }
-          ]
-  
-          return todasSections.filter(s => s.data.length>0);
-  
-      }, [listaPesq]);
-
+  const [listaPesq, setListaPesq] = useState(listas);
   const [ID, setID] = useState(6);
 
+  // Função para adicionar lista mocada
   const handlePressAddLista = () => {
     const novaLista = {
-          id: ID,
-          titulo: `Lista ${ID}`,
-          isVisivel: false,
-          descricao: "Compare a distância de um trajeto em linha reta com a distância percorrida seguindo o contorno das ruas (em formato de L).",
-          nivel: "Fácil",
-          qntExerc: 5,
-          dica: "Na rota em L, some os dois segmentos de reta. Na rota em linha reta, use Pitágoras.",
-          resposta: ['d', 'a', 'b', 'c', 'b']
-    }
-
+      id: ID,
+      titulo: `Lista ${ID}`,
+      isVisivel: false,
+      descricao: "Compare a distância de um trajeto em linha reta com a distância percorrida seguindo o contorno das ruas (em formato de L).",
+      nivel: "Fácil",
+      qntExerc: 5,
+      dica: "Na rota em L, some os dois segmentos de reta. Na rota em linha reta, use Pitágoras.",
+      resposta: ['d','a','b','c','b']
+    };
     setListas(l => [...l, novaLista]);
     setListaPesq(l => [...l, novaLista]);
-    setID(ID+1);
-  }
+    setID(ID + 1);
+  };
 
-  // Criando as seções de Listas Visíveis e Não Visíveis
-  // const sections = useMemo(() => [
-  //   {
-  //     title: 'Não Visível',
-  //     data: listas.filter(l => !l.isVisivel)
-  //   },
-  //   {
-  //     title: 'Visível',
-  //     data: listas.filter(l => l.isVisivel)
-  //   }
-  // ], [listas]);
+  // Criando as seções de Visível e Não Visível
+  const sections = useMemo(() => {
+    const todasSections = [
+      { title: 'Não Visível', data: listaPesq.filter(l => !l.isVisivel) },
+      { title: 'Visível', data: listaPesq.filter(l => l.isVisivel) }
+    ];
+    return todasSections.filter(s => s.data.length > 0);
+  }, [listaPesq]);
 
-  return (        
+  return (
     <View style={{ flex: 1 }}>
       <View style={styles.top} />
 
       <View style={styles.screen}>
         <StatusBar style='dark' backgroundColor='#D0F5FF'/>
 
-        <Cabecalho handlePressAddLista={handlePressAddLista}/>
+        <Cabecalho handlePressAddLista={handlePressAddLista} />
 
-        <ImageBackground source={require('./assets/fundo.png')}
-                          resizeMode='cover'
-                          style={styles.corpoFundo}>
-          <Corpo listas={listas} 
-                 setListas={setListas} 
-                 sections={sections} 
-                 listaPesq={listaPesq}
-                 setListaPesq={setListaPesq}/>
+        <ImageBackground
+          source={require('./assets/fundo.png')}
+          resizeMode='cover'
+          style={styles.corpoFundo}
+        >
+          <Corpo
+            sections={sections}
+            listaPesq={listaPesq}
+            setListaPesq={setListaPesq}
+          />
         </ImageBackground>
 
-        <Rodape/>
+        <Rodape />
       </View>
     </View>
   );
