@@ -4,7 +4,8 @@ import {StyleSheet} from 'react-native';
 export const cores = {
     azul: '#8DD5E9',
     verde: '#B8EBCC',
-    branco: '#FFFFFF'
+    branco: '#FFFFFF',
+    cinza: '#aaa'
 }
 
 export const styles = StyleSheet.create({
@@ -37,6 +38,10 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
+    botao: {
+        paddingHorizontal: 10,
+    },
+
     corpo: {
         flex: 1,
         width: '100%',
@@ -44,6 +49,8 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: '20'
     },
+
+    /*************** Barra de consulta ***************/
 
     barraConsulta: {
         width: '80%',
@@ -56,11 +63,13 @@ export const styles = StyleSheet.create({
     textInput: {
         flex: 1,
         height: 37,
-        paddingLeft: 20,
+        paddingHorizontal: 20,
         elevation: 2,
         borderRadius: 17,
         backgroundColor: cores.branco
     },
+
+    /*************** Área de resultados das listas ***************/
 
     resultado: {
         height: '87%',
@@ -71,9 +80,9 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-        paddingVertical: '8',
-        paddingHorizontal: '14',
-        marginBottom: '10',
+        paddingVertical: 8,
+        paddingLeft: 14,
+        marginBottom: 10,
         borderColor: 'blue',
         borderRadius: 10,
         elevation: 2,
@@ -90,6 +99,8 @@ export const styles = StyleSheet.create({
         flex: 1,    // Ocupa todo o espaço do corpo
         width: '100%'
     },
+
+    /************** Modal **************/
 
     modalCentered: {
         flex: 1,
@@ -149,6 +160,8 @@ export const styles = StyleSheet.create({
         fontWeight: 'normal'
     },
 
+    /******************************/
+
     rodape: {
         flexDirection: 'row',
         width: '100%',
@@ -156,6 +169,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 40,
         justifyContent: 'center',
-        backgroundColor: cores.azul
+        backgroundColor: cores.azul,
     }
 });
