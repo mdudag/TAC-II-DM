@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Text, View, SectionList, Modal, Pressable, ScrollView, TextInput, Button, TouchableOpacity } from 'react-native';
-import { cores, styles } from './styles';
+import { styles } from './styles';
 
 // ================== CABEÇALHO ==================
+
 export function Cabecalho({ handlePressAddLista }) {
     return (
         <View style={styles.cabecalho}>
@@ -21,7 +22,6 @@ export function ButtonStyle({ title, onPress }) {
     );
 }
 
-// ================== CORPO ==================
 export function Corpo({ listas, setListas, sections, listaPesq, setListaPesq }) {
     const [pesq, setPesq] = useState('');
 
@@ -50,6 +50,7 @@ export function Corpo({ listas, setListas, sections, listaPesq, setListaPesq }) 
 }
 
 // ================== BARRA DE CONSULTA ==================
+
 function BarraConsulta({ placeholder, pesq, setPesq, listas, setListaPesq }) {
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -60,10 +61,11 @@ function BarraConsulta({ placeholder, pesq, setPesq, listas, setListaPesq }) {
 
     const buscarListas = () => {
         const palavra = pesq.toLowerCase().trim();
+
         if (palavra === '') {
             setListaPesq(listas);
         } else {
-            const resultPesq = listas.filter(lista =>
+            const resultPesq = listas.filter((lista) =>
                 lista.titulo.toLowerCase().includes(palavra)
             );
             setListaPesq(resultPesq);
@@ -78,6 +80,8 @@ function BarraConsulta({ placeholder, pesq, setPesq, listas, setListaPesq }) {
                 value={pesq}
                 onChangeText={setPesq}
             />
+
+            {/* Botão X para limpar texto */}
             {pesq.length > 0 && (
                 <TouchableOpacity onPress={() => setPesq('')}>
                     <Text style={{ fontSize: 18, color: '#666', marginLeft: 8 }}>✖</Text>
@@ -88,6 +92,7 @@ function BarraConsulta({ placeholder, pesq, setPesq, listas, setListaPesq }) {
 }
 
 // ================== RESULTADOS DAS LISTAS ==================
+
 function ResultadoListas({ listas, sections, handlePressLixeira }) {
     const [isVisible, setIsVisible] = useState(false);
     const [itemLista, setItemLista] = useState({});
@@ -97,37 +102,16 @@ function ResultadoListas({ listas, sections, handlePressLixeira }) {
         setIsVisible(true);
     };
 
-    const modalClose = () => setIsVisible(false);
-
-    const renderLista = ({ item }) => {
-        return (
-            <View style={styles.barraLista}>
-                <View style={{ flex: 1 }}>
-                    <Pressable onPress={() => modalOpen(item)}>
-                        <Text>{item.titulo}</Text>
-                    </Pressable>
-                </View>
-                <View style={{ flexDirection: 'row', marginLeft: 14 }}>
-                    <Button
-                        title='🗑️'
-                        color={cores.branco}
-                        onPress={() => handlePressLixeira(item.id)}
-                    />
-                </View>
-            </View>
-        );
+    const modalClose = () => {
+        setIsVisible(false);
     };
-
-    const renderSectionLista = ({ section: { title } }) => (
-        <Text style={styles.headerListas}>{title}</Text>
-    );
 
     return (
         <View style={styles.resultado}>
             <SectionList
                 sections={sections}
                 keyExtractor={lista => lista.id.toString()}
-                renderItem={renderLista}
+                renderItem={({ item }) => renderLista({ item, modalOpen, handlePressLixeira })}
                 renderSectionHeader={renderSectionLista}
                 stickySectionHeadersEnabled={false}
             />
@@ -136,28 +120,64 @@ function ResultadoListas({ listas, sections, handlePressLixeira }) {
     );
 }
 
-// ================== MODAL ==================
-function ModalLista({ isVisible, modalClose, itemLista }) {
-    const valorLista = (itemLista) => {
-        const maxQntExer = 150;
-        const escalaNota = 100;
-        let nivel = itemLista.nivel === 'Fácil' ? 1 : itemLista.nivel === 'Médio' ? 5 : 10;
-        let val = itemLista.qntExerc * nivel * escalaNota / maxQntExer;
-        return val.toLocaleString('pt-BR', { maximumFractionDigits: 1 });
-    };
+const renderLista = ({ item, modalOpen, handlePressLixeira }) => {
+    return (
+        <View style={styles.barraLista}>
+            <View style={{ flex: 1 }}>
+                <Pressable onPress={() => modalOpen(item)}>
+                    <Text>{item.titulo || 'Sem título'}</Text>
 
+                </Pressable>
+            </View>
+            <View style={{ flexDirection: 'row', marginLeft: 14 }}>
+                <Button
+                    title='🗑️'
+                    color='#ffffffff'
+                    onPress={() => handlePressLixeira(item.id)}
+                />
+            </View>
+        </View>
+    );
+};
+
+const renderSectionLista = ({ section: { title } }) => {
+    return <Text style={styles.headerListas}>{title}</Text>;
+};
+
+// ================== MODAL ==================
+
+const valorLista = (itemLista) => {
+    const maxQntExer = 150;
+    const escalaNota = 100;
+    let nivel, val;
+
+    nivel =
+        itemLista.nivel === 'Fácil' ? 1 :
+            itemLista.nivel === 'Médio' ? 5 :
+                10;
+
+    val = itemLista.qntExerc * nivel * escalaNota / maxQntExer;
+    return val.toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+};
+
+function ModalLista({ isVisible, modalClose, itemLista }) {
     return (
         <Modal visible={isVisible} transparent={true} animationType='fade'>
             <View style={styles.modalCentered}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalCabecalho}>
-                        <Text style={styles.modalCabecalhoText} numberOfLines={1} adjustsFontSizeToFit>
+                        <Text
+                            style={styles.modalCabecalhoText}
+                            numberOfLines={1}
+                            adjustsFontSizeToFit
+                        >
                             {itemLista.titulo}
                         </Text>
                         <Pressable onPress={modalClose}>
                             <Text style={{ color: '#aaa' }}>✕</Text>
                         </Pressable>
                     </View>
+
                     <View style={styles.modalLine}></View>
                     <ScrollView style={styles.modalScrollView}>
                         <View style={styles.modalCorpo}>
@@ -185,13 +205,22 @@ function ModalItem({ label, text }) {
 }
 
 // ================== RODAPÉ ==================
+
+export function ButtonStyle({ title, onPress }) {
+    return (
+        <View style={{ marginRight: 10 }}>
+            <Button title={title} color='#8DD5E9' onPress={onPress} />
+        </View>
+    );
+}
+
 export function Rodape() {
     return (
         <View style={styles.rodape}>
             <ButtonStyle title=' 🏚️ ' />
             <ButtonStyle title=' 🗺️ ' />
             <View style={{ marginRight: 10 }}>
-                <Button title=' 📋 ' color={cores.verde} />
+                <Button title=' 📋 ' color='#B8EBCC' />
             </View>
             <ButtonStyle title=' ✏️ ' />
             <ButtonStyle title=' 👤 ' />
