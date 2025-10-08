@@ -5,7 +5,8 @@ export const cores = {
     azul: '#8DD5E9',
     verde: '#B8EBCC',
     branco: '#FFFFFF',
-    cinza: '#aaa'
+    cinza: '#aaa',
+    corIcons: '#252525ff'
 }
 
 export const styles = StyleSheet.create({
@@ -35,7 +36,8 @@ export const styles = StyleSheet.create({
     tituloCabecalho: {
         flex: 1,
         fontSize: 19, 
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: cores.corIcons
     },
 
     botao: {
@@ -86,13 +88,15 @@ export const styles = StyleSheet.create({
         borderColor: 'blue',
         borderRadius: 10,
         elevation: 2,
-        backgroundColor: cores.branco
+        backgroundColor: cores.branco,
+        color: cores.corIcons
     },
 
     headerListas: {
         marginBottom: '10',
         marginTop: '10',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: cores.corIcons
     },
 
     corpoFundo: {
@@ -129,6 +133,7 @@ export const styles = StyleSheet.create({
         width: '90%',
         fontSize: 19,
         fontWeight: 'bold',
+        color: cores.corIcons
     },
 
     modalLine: {
@@ -152,12 +157,14 @@ export const styles = StyleSheet.create({
 
     modalItemLabel: {
         fontSize: 17,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: cores.corIcons
     },
 
     modalItemText: {
         fontSize: 15,
-        fontWeight: 'normal'
+        fontWeight: 'normal',
+        color: cores.corIcons
     },
 
     /******************************/

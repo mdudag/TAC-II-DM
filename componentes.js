@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import {Text, View, SectionList, Modal, Pressable, ScrollView, TextInput, Button} from 'react-native';
+import {Text, View, SectionList, Modal, Pressable, ScrollView, TextInput} from 'react-native';
+import {MaterialIcons} from "@expo/vector-icons"
 
-// import Icon from 'react-native-vector-icons/FontAwesome';
 import {cores, styles} from './styles';
 
 export function Cabecalho({handlePressAddLista}) {
@@ -16,7 +16,7 @@ export function Cabecalho({handlePressAddLista}) {
               >
             Listas de Exercícios
         </Text>
-        <Botao titulo="✛"
+        <Botao icone={<MaterialIcons name="add-circle" size={24} color={cores.corIcons} />}
                onPress={handlePressAddLista}
                cor='transparent'
                estiloBotao={{paddingHorizontal: 10}} />
@@ -25,7 +25,7 @@ export function Cabecalho({handlePressAddLista}) {
 }
 
 function Botao({
-    titulo = 'Botão',
+    titulo = '',
     onPress = () => {},
     cor = cores.branco,
     corPress = 'transparent',
@@ -109,7 +109,7 @@ function ResultadoListas({sections, handlePressLixeira}) {
                     </Pressable>
                 </View>
                 <View style={{flexDirection: 'row', marginLeft: 14}}>
-                    <Botao titulo="🗑️"
+                    <Botao icone={<MaterialIcons name="delete-outline" size={24} color={cores.corIcons} />}
                            onPress={() => handlePressLixeira(item.id)}
                            cor='transparent'
                            estiloBotao={{paddingHorizontal: 14}} />
@@ -155,11 +155,10 @@ function ModalLista({isVisible, modalClose, itemLista}) {
                               ellipsizeMode='tail'  // Corta o texto e add reticências se for muito grande
                               > {itemLista.titulo}
                         </Text>
-                        <Botao titulo="✕"
+                        <Botao icone={<MaterialIcons name="close" size={21} color={cores.cinza} />}
                                onPress={modalClose}
                                cor='transparent'
-                               estiloBotao={{paddingHorizontal: 10}} 
-                               estiloText={{color: cores.cinza}}/>
+                               estiloBotao={{paddingHorizontal: 10}}/>
                     </View>
 
                   <View style={styles.modalLine}></View>
@@ -171,7 +170,7 @@ function ModalLista({isVisible, modalClose, itemLista}) {
                             <ModalItem label='Valor' text={valorLista(itemLista)}/>
                             <ModalItem label='Dica' text={itemLista.dica}/>
                             <ModalItem label='Gabarito' 
-                                    text={itemLista.resposta.join(' | ') || 'Sem Gabarito'}/>
+                                    text={itemLista.resposta?.join(' | ') || 'Sem Gabarito'}/>
                         </View>
                     </ScrollView>
                 </View>
@@ -208,35 +207,49 @@ const valorLista = (itemLista) => {
 // ================== RODAPÉ ==================
 
 export function Rodape() {
-    const cor=cores.azul,padding=17, marginHorizontal=8,borderRadius=40;
+    const cor=cores.azul,paddingHorizontal=14, paddingVertical=12, marginHorizontal=8,borderRadius=40;
+    const tamBnt=30;
 
     return(
         <View style={styles.rodape}>
-            <Botao titulo="🏚️"
+            <Botao icone={<MaterialIcons name="home-filled" size={tamBnt} color={cores.corIcons} />}
                    cor={cor}
-                   estiloBotao={{padding: padding,
+                   corPress='#rgba(117, 176, 193, 1)'
+                   estiloBotao={{paddingHorizontal: paddingHorizontal,
+                                 paddingVertical: paddingVertical,
                                  marginHorizontal: marginHorizontal,
                                  borderRadius: borderRadius}} />
-            <Botao titulo="🗺️"
+            <Botao icone={<MaterialIcons name="map" size={tamBnt} color={cores.corIcons} />}
                    cor={cor}
-                   estiloBotao={{padding: padding,
+                   corPress='#rgba(117, 176, 193, 1)'
+                   estiloBotao={{paddingHorizontal: paddingHorizontal,
+                                 paddingVertical: paddingVertical,
                                  marginHorizontal: marginHorizontal,
                                  borderRadius: borderRadius}} />
-            <Botao titulo="📋"
+            <Botao icone={<MaterialIcons name="menu-book" size={tamBnt} color={cores.corIcons} />}
+                   cor={cores.verde}
+                   corPress='#9bc6acff'
+                   estiloBotao={{paddingHorizontal: paddingHorizontal,
+                                 paddingVertical: paddingVertical,
+                                 marginHorizontal: marginHorizontal,
+                                 borderRadius: borderRadius,
+                                 elevation: 5}} />
+            <Botao icone={<MaterialIcons name="note-alt" size={tamBnt} color={cores.corIcons} />}
                    cor={cor}
-                   estiloBotao={{padding: padding,
+                   corPress='#rgba(117, 176, 193, 1)'
+                   estiloBotao={{paddingHorizontal: paddingHorizontal,
+                                 paddingVertical: paddingVertical,
                                  marginHorizontal: marginHorizontal,
                                  borderRadius: borderRadius}} />
-            <Botao titulo="✏️"
+            <Botao icone={<MaterialIcons name="account-circle" size={tamBnt} color={cores.corIcons} />}
                    cor={cor}
-                   estiloBotao={{padding: padding,
-                                 marginHorizontal: marginHorizontal,
-                                 borderRadius: borderRadius}} />
-            <Botao titulo="👤"
-                   cor={cor}
-                   estiloBotao={{padding: padding,
+                   corPress='#rgba(117, 176, 193, 1)'
+                   estiloBotao={{paddingHorizontal: paddingHorizontal,
+                                 paddingVertical: paddingVertical,
                                  marginHorizontal: marginHorizontal,
                                  borderRadius: borderRadius}} />
         </View>
     );
 }
+
+// add_circle_outline
