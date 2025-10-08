@@ -160,5 +160,96 @@ export const styles = StyleSheet.create({
         paddingBottom: 40,
         justifyContent: 'center',
         backgroundColor: cores.azul
-    }
+    },
+    // Adicione estes estilos ao seu arquivo styles.js
+
+inputContainer: {
+  marginBottom: 20,
+},
+
+label: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  marginBottom: 8,
+  color: '#333',
+},
+
+textInputModal: {
+  borderWidth: 1,
+  borderColor: '#ddd',
+  borderRadius: 8,
+  padding: 12,
+  fontSize: 16,
+  backgroundColor: cores.branco,
+},
+
+botoesNivel: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+},
+
+botaoNivel: {
+  flex: 1,
+  padding: 12,
+  marginHorizontal: 4,
+  borderRadius: 8,
+  borderWidth: 1,
+  borderColor: '#8DD5E9',
+  alignItems: 'center',
+  backgroundColor: cores.branco,
+},
+
+botaoNivelSelecionado: {
+  backgroundColor: cores.azul,
+  borderColor: cores.azul,
+},
+
+textoBotaoNivel: {
+  color: cores.azul,
+  fontWeight: '500',
+},
+
+textoBotaoNivelSelecionado: {
+  color: cores.branco,
+  fontWeight: 'bold',
+},
+
+botoesAcao: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginTop: 20,
+  marginBottom: 10,
+},
+
+botaoCancelar: {
+  flex: 1,
+  padding: 15,
+  marginRight: 10,
+  borderRadius: 8,
+  borderWidth: 1,
+  borderColor: '#999',
+  alignItems: 'center',
+  backgroundColor: cores.branco,
+},
+
+botaoSalvar: {
+  flex: 1,
+  padding: 15,
+  marginLeft: 10,
+  borderRadius: 8,
+  alignItems: 'center',
+  backgroundColor: cores.verde,
+},
+
+textoBotaoCancelar: {
+  color: '#666',
+  fontWeight: 'bold',
+  fontSize: 16,
+},
+
+textoBotaoSalvar: {
+  color: '#333',
+  fontWeight: 'bold',
+  fontSize: 16,
+}
 });
