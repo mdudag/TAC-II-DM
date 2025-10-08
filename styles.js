@@ -11,7 +11,7 @@ export const cores = {
 
 export const styles = StyleSheet.create({
     top: {
-        height: '35',
+        height: 35,
         backgroundColor: '#D0F5FF'
     },
 
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: '77%',
         alignItems: 'center',
-        paddingTop: '20'
+        paddingTop: 20
     },
 
     /*************** Barra de consulta ***************/
@@ -93,8 +93,8 @@ export const styles = StyleSheet.create({
     },
 
     headerListas: {
-        marginBottom: '10',
-        marginTop: '10',
+        marginBottom: 10,
+        marginTop: 10,
         fontWeight: 'bold',
         color: cores.corIcons
     },
