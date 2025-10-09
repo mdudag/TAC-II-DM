@@ -25,7 +25,7 @@ export function Cabecalho({handlePressAddLista}) {
 }
 
 function Botao({
-    titulo = '',
+    titulo = null,
     onPress = () => {},
     cor = cores.branco,
     corPress = 'transparent',
@@ -49,7 +49,7 @@ function Botao({
                     backgroundColor: cor? (pressed? corPress: cor): 'transparent'
                    }, estiloBotao]}>
             {icone && <Text>{icone}</Text>}
-            {titulo? <Text style={estiloText}>{titulo}</Text>: null}
+            {titulo && <Text style={estiloText}>{titulo}</Text>}
         </Pressable>
     );
 }
