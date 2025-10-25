@@ -1,9 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import {useState, useMemo} from 'react';
-import {View , ImageBackground} from 'react-native';
+import { useState, useMemo } from 'react';
+import { View, ImageBackground } from 'react-native';
 
-import {Cabecalho, Corpo, Rodape} from './componentes';
-import { styles } from './styles';
+import { Cabecalho } from './src/components/Cabecalho';
+import { Corpo } from './src/components/Corpo';
+import { Rodape } from './src/components/Rodape';
+import { ModalAdicionarLista } from './src/components/ModalAdicionarLista';
+import { styles } from './src/styles/styles';
 
 export default function App() {
   // Guarda todas as listas atualizadas
@@ -62,6 +65,7 @@ export default function App() {
 
   const [pesq, setPesq] = useState(''); // Guarda o valor do input de pesquisa
   const [ID, setID] = useState(6);      // Guarda valo do id de nova lista
+  const [modalAdicionarVisible, setModalAdicionarVisible] = useState(false); // Estado do modal
   
   // Lista gerada a partir da pesquisa ou da atualização da lista original
   const listaPesq = useMemo(() => {
@@ -95,22 +99,16 @@ export default function App() {
 
   }, [listaPesq]);
 
+  // Função para abrir modal de adicionar
   const handlePressAddLista = () => {
-    // Adiciona uma nova lista de exercícios as listas
-    const novaLista = {
-      id: ID,
-      titulo: `Lista ${ID}`,
-      isVisivel: false,
-      descricao: "Compare a distância de um trajeto em linha reta com a distância percorrida seguindo o contorno das ruas (em formato de L).",
-      nivel: "Fácil",
-      qntExerc: 5,
-      dica: "Na rota em L, some os dois segmentos de reta. Na rota em linha reta, use Pitágoras.",
-      resposta: ['d', 'a', 'b', 'c', 'b']
-    }
+    setModalAdicionarVisible(true);
+  };
 
+  // Função para adicionar nova lista
+  const handleAdicionarLista = (novaLista) => {
     setListas(l => [...l, novaLista]);
-    setID(id => id+1);
-  }
+    setID(ID + 1);
+  };
 
   const handlePressLixeira = (id) => {
     // Cria uma nova lista sem a lista que foi selecionada para deleção
@@ -134,6 +132,13 @@ export default function App() {
           <Corpo sections={sections}
                  setPesq={setPesq}
                  handlePressLixeira={handlePressLixeira}/>
+
+          {/* Modal para adicionar nova lista */}
+          <ModalAdicionarLista
+            isVisible={modalAdicionarVisible}
+            modalClose={() => setModalAdicionarVisible(false)}
+            onAdicionarLista={handleAdicionarLista}
+          />
         </ImageBackground>
 
         <Rodape/>
