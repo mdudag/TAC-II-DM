@@ -38,3 +38,11 @@ Trabalho realizado como creditação da disciplina de Tópicos Avançados de Com
 	~~~bash
 	npx expo start
 	~~~
+
+## Bibliotecas
+
+* Bibliotecas de Navegação:
+
+	~~~bash
+	npx expo install @react-navigation/native @react-navigation/native-stack react-native-screens react-native-safe-area-context
+	~~~

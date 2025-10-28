@@ -4,7 +4,7 @@ import {BarraConsulta} from './BarraConsulta';
 import {ResultadoListas} from './ResultadoListas';
 import { styles } from '../styles/styles';
 
-export function Corpo({ sections, setPesq, handlePressLixeira }) {
+export function CorpoListas({ sections, setPesq, handlePressLixeira }) {
   return(
     <View style={styles.corpo}>
       <BarraConsulta placeholder={'🔍 Pesquise uma lista'} 

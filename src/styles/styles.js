@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 // Cores fixas
 export const cores = {
   azul: '#8DD5E9',
+  azulEscuro: '#73aebfff',
   verde: '#B8EBCC',
   branco: '#FFFFFF',
   cinza: '#aaa',
@@ -51,6 +52,15 @@ export const styles = StyleSheet.create({
     height: '77%',
     alignItems: 'center',
     paddingTop: 20
+  },
+
+  corpoLista: {
+    flex: 1,
+    width: '100%',
+    height: '77%',
+    // alignItems: 'center',
+    padding: 20,
+    
   },
 
   /*************** Barra de consulta ***************/

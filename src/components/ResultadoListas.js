@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { Text, View, SectionList, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from "@expo/vector-icons"
 
 import { Botao } from './Botao';
 import { ModalLista } from './ModalLista';
 import { cores, styles } from '../styles/styles';
 
-export function ResultadoListas({sections, handlePressLixeira}) {
+export function ResultadoListas({ sections, handlePressLixeira }) {
+  const navigation = useNavigation();
+
   const [isVisible, setIsVisible] = useState(false);
   const [itemLista, setItemLista] = useState({});
 
@@ -19,11 +22,20 @@ export function ResultadoListas({sections, handlePressLixeira}) {
     setIsVisible(false);
   }
 
+  const handlePressTitulo = (item) => {
+    setItemLista(item);
+    navigation.navigate('TabNavigator', {
+      screen: 'VisualizarLista',
+      params: { item }
+    })
+  }
+
   const renderLista = ({item, modalOpen, handlePressLixeira}) => {
     return(
       <View style={styles.barraLista}>
         <View style={{flex: 1}}>
-          <Pressable onPress={() => modalOpen(item)}>
+          {/* <Pressable onPress={() => modalOpen(item)}> */}
+          <Pressable onPress={() => handlePressTitulo(item)}>
             <Text // Se o texto for maior que o espaço:
                   numberOfLines={1}     // Permite o texto em uma linha
                   minimumFontScale={0.9} // Tamanho mínimo da fonte: até 90% menor
@@ -35,10 +47,14 @@ export function ResultadoListas({sections, handlePressLixeira}) {
         </View>
 
         <View style={{flexDirection: 'row', marginLeft: 14}}>
+          <Botao icone={<MaterialIcons name="info-outline" size={24} color={cores.corIcons} />}
+                          onPress={() => modalOpen(item)}
+                          cor='transparent'
+                          estiloBotao={{paddingHorizontal: 14}} />
           <Botao icone={<MaterialIcons name="delete-outline" size={24} color={cores.corIcons} />}
                           onPress={() => handlePressLixeira(item.id)}
                           cor='transparent'
-                          estiloBotao={{paddingHorizontal: 14}} />
+                          estiloBotao={{paddingRight: 14}} />
       </View>
       </View> 
     );
